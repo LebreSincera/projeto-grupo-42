@@ -6,7 +6,7 @@
 - EWERTON DOS SANTOS GONCALVES
 
 ## Objetivo
-- Analise De Dados Amazon
+- Analise De Dados BMW
 ## Planejamento
 
 ## Tecnologias
