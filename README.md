@@ -6,7 +6,9 @@
 - EWERTON DOS SANTOS GONCALVES
 
 ## Objetivo
-
+- Analise De Dados Amazon
 ## Planejamento
 
 ## Tecnologias
+- python
+- pandas 
