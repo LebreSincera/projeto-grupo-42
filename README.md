@@ -6,7 +6,7 @@
 - EWERTON DOS SANTOS GONCALVES
 
 ## Objetivo
-- Analise De Dados Amazon
+- Analise De Dados BMW
 ## Planejamento
 - Tarefa 1: Limpeza e tratamento da base de dados (CSV) - LUCAS BARROS DE ALMEIDA
 - Tarefa 2: Desenvolvimento da lógica de filtros e consultas - PEDRO OLIVEIRA SOUZA
