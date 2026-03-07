@@ -14,5 +14,6 @@
 - Tarefa 4: Construção da interface interativa em Streamlit - THIAGO JULIANI DE OLIVEIRA
 - Tarefa 5: Documentação técnica e revisão final - MATHEUS SANTOS SAMPAIO
 ## Tecnologias
-- python
-- pandas 
+- Python
+- Pandas
+- Streamlit
