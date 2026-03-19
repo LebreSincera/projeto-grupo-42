@@ -13,7 +13,7 @@
 2. Identificar os modelos mais comercializados;  
 3. Comparar o crescimento das vendas entre diferentes regiões
 
-##Finalidade da análise  
+## Finalidade da análise  
 - Compreender de forma mais aprofundada o mercado de vendas da BMW e sua distribuição global.   
 ## Planejamento
 - Tarefa 1: Limpeza e tratamento da base de dados (CSV) - LUCAS BARROS DE ALMEIDA
