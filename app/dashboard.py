@@ -9,20 +9,26 @@ Execução:
 
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 import os
 
 # Caminho para a base tratada
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CAMINHO_DADOS = os.path.join(BASE_DIR, "data", "base_tratada.csv")
 
+# Paleta azul BMW
+PALETA_BMW = ["#000080", "#0000FF", "#3181FF", "#00FFFF"]
+
 st.set_page_config(page_title="BMW Sales Dashboard", layout="wide")
 
 st.title("🚗 BMW Global Automotive Sales")
 st.caption("Fonte: Base de dados de vendas globais BMW (2018–2025)")
 
+
 @st.cache_data
 def load_data():
     return pd.read_csv(CAMINHO_DADOS)
+
 
 try:
     df = load_data()
@@ -57,36 +63,63 @@ try:
 
     st.divider()
 
-    # ── OBJETIVO 1: Volume de vendas por região ───────────────────────────────
-    st.subheader("🌍 Objetivo 1 — Volume de Vendas por Região")
-    vendas_regiao = (
-        df_filtrado.groupby("Region")["Units_Sold"]
+    # ── OBJETIVO 1: Volume de vendas por região ao longo dos anos ────────────
+    st.subheader("🌍 Objetivo 1 — Volume de Vendas por Região ao Longo dos Anos")
+    df_obj1 = (
+        df_filtrado.groupby(["Year", "Region"])["Units_Sold"]
         .sum()
-        .sort_values(ascending=False)
+        .reset_index()
     )
-    st.bar_chart(vendas_regiao)
+    fig1 = px.bar(
+        df_obj1,
+        x="Year", y="Units_Sold", color="Region",
+        barmode="group",
+        color_discrete_sequence=PALETA_BMW,
+        title="Vendas por Região (por Ano)",
+        labels={"Units_Sold": "Unidades Vendidas", "Year": "Ano", "Region": "Região"}
+    )
+    st.plotly_chart(fig1, use_container_width=True)
 
     st.divider()
 
     # ── OBJETIVO 2: Modelos mais comercializados ──────────────────────────────
     st.subheader("🏆 Objetivo 2 — Modelos Mais Comercializados")
-    vendas_modelo = (
+    df_obj2 = (
         df_filtrado.groupby("Model")["Units_Sold"]
         .sum()
         .sort_values(ascending=True)
+        .reset_index()
     )
-    st.bar_chart(vendas_modelo)
+    fig2 = px.bar(
+        df_obj2,
+        x="Units_Sold", y="Model",
+        orientation="h",
+        color="Units_Sold",
+        color_continuous_scale=["#000080", "#0000FF", "#3181FF", "#00FFFF"],
+        title="Modelos Mais Comercializados",
+        labels={"Units_Sold": "Unidades Vendidas", "Model": "Modelo"}
+    )
+    fig2.update_layout(coloraxis_showscale=False)
+    st.plotly_chart(fig2, use_container_width=True)
 
     st.divider()
 
     # ── OBJETIVO 3: Crescimento de vendas por região ──────────────────────────
     st.subheader("📈 Objetivo 3 — Crescimento de Vendas por Região ao Longo dos Anos")
-    crescimento = (
+    df_obj3 = (
         df_filtrado.groupby(["Year", "Region"])["Units_Sold"]
         .sum()
-        .unstack(fill_value=0)
+        .reset_index()
     )
-    st.line_chart(crescimento)
+    fig3 = px.line(
+        df_obj3,
+        x="Year", y="Units_Sold", color="Region",
+        markers=True,
+        color_discrete_sequence=PALETA_BMW,
+        title="Crescimento de Vendas por Região",
+        labels={"Units_Sold": "Unidades Vendidas", "Year": "Ano", "Region": "Região"}
+    )
+    st.plotly_chart(fig3, use_container_width=True)
 
     st.divider()
 
