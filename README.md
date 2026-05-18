@@ -25,7 +25,7 @@
 ## Estrutura do Repositório
 
 ```
-projeto-grupo-42/
+Project_Files/
 ├── data/
 │   ├── base_original.csv     # Base de dados bruta (adicionar manualmente)
 │   └── base_tratada.csv      # Gerada automaticamente pelo ETL
