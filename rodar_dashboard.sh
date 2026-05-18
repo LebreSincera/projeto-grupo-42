@@ -24,11 +24,11 @@ source .venv/bin/activate
 
 # Instala as dependências
 echo "[3/3] Instalando dependencias..."
-pip install -r projeto-grupo-42/Project_Files/requirements.txt --quiet
+pip install -r Project_Files/requirements.txt --quiet
 
 # Roda o dashboard
 echo ""
 echo "Abrindo o dashboard no navegador..."
 echo "Para encerrar, pressione CTRL+C"
 echo ""
-streamlit run projeto-grupo-42/Project_Files/app/dashboard.py
+streamlit run Project_Files/app/dashboard.py
