@@ -27,13 +27,13 @@
 ```
 Project_Files/
 ├── data/
-│   ├── base_original.csv     # Base de dados bruta (adicionar manualmente)
-│   └── base_tratada.csv      # Gerada automaticamente pelo ETL
+│   ├── base_original.csv     
+│   └── base_tratada.csv      
 ├── src/
-│   └── etl.py                # Limpeza e tratamento dos dados
+│   └── etl.py                
 ├── app/
-│   └── dashboard.py          # Interface interativa em Streamlit
-├── requirements.txt          # Dependências do projeto
+│   └── dashboard.py          
+├── requirements.txt          
 └── README.md
 ```
 
