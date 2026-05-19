@@ -4,7 +4,7 @@ Projeto Integrador - Grupo 42
 
 Execução:
     Na raiz do projeto, rode:
-    streamlit run projeto-grupo-42/app/dashboard.py
+    streamlit run Project_Files/app/dashboard.py
 """
 
 import streamlit as st
@@ -55,11 +55,22 @@ try:
     total_vendas  = df_filtrado["Units_Sold"].sum()
     receita_total = df_filtrado["Revenue_EUR"].sum()
     media_ev      = df_filtrado["BEV_Share"].mean() * 100 if "BEV_Share" in df_filtrado.columns else 0
+    total_vendas = df["Units_Sold"].sum()
+    total_modelos = df["Model"].nunique()
+    total_regioes = df["Region"].nunique()
+    ano_inicial = df["Year"].min()
+    ano_final = df["Year"].max()
 
     m1, m2, m3 = st.columns(3)
-    m1.metric("Total Vendido",                  f"{total_vendas:,} un")
+    m1.metric("Unidades Vendidas",                  f"{total_vendas:,} un")
     m2.metric("Receita Total",                  f"€{receita_total:,.0f}")
-    m3.metric("Participação Elétricos (Média)", f"{media_ev:.1f}%")
+    m3.metric("Participação Elétricos (Média)", f"{media_ev:.1f}%")    
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Modelos", total_modelos)
+    col2.metric("Regiões", total_regioes)
+    col3.metric("Período", f"{ano_inicial} - {ano_final}")
 
     st.divider()
 
@@ -120,6 +131,108 @@ try:
         labels={"Units_Sold": "Unidades Vendidas", "Year": "Ano", "Region": "Região"}
     )
     st.plotly_chart(fig3, use_container_width=True)
+
+    st.divider()
+
+    # ── OUTROS GRÁFICOS E ANÁLISES ───────────────────────────────────────────────
+        # Dados agrupados
+    vendas_regiao = df.groupby("Region")["Units_Sold"].sum().reset_index()
+
+    vendas_ano = df.groupby("Year")["Units_Sold"].sum().reset_index()
+
+    modelos = (
+        df.groupby("Model")["Units_Sold"]
+        .sum()
+        .sort_values(ascending=True)
+        .reset_index()
+    )
+
+    vendas_regiao_ano = (
+        df.groupby(["Year", "Region"])["Units_Sold"]
+        .sum()
+        .reset_index()
+    )
+
+    col_esq, col_dir = st.columns(2)
+
+    with col_esq:
+        st.subheader("🌍 Vendas por Região")
+
+        fig1 = px.bar(
+            vendas_regiao,
+            x="Region",
+            y="Units_Sold",
+            color="Region",
+            color_discrete_sequence=PALETA_BMW,
+            title="Volume total de vendas por região",
+            labels={
+                "Region": "Região",
+                "Units_Sold": "Unidades vendidas"
+            }
+        )
+
+        st.plotly_chart(fig1, use_container_width=True)
+
+    with col_dir:
+        st.subheader("📈 Evolução das Vendas")
+
+        fig2 = px.line(
+            vendas_ano,
+            x="Year",
+            y="Units_Sold",
+            markers=True,
+            title="Evolução das vendas ao longo dos anos",
+            labels={
+                "Year": "Ano",
+                "Units_Sold": "Unidades vendidas"
+            }
+        )
+
+        st.plotly_chart(fig2, use_container_width=True)
+
+    st.divider()
+
+    col_esq2, col_dir2 = st.columns(2)
+
+    with col_esq2:
+        if "BEV_Share" in df.columns:
+            st.subheader("🔋 Participação de Veículos Elétricos")
+
+            bev = df.groupby("Year")["BEV_Share"].mean().reset_index()
+
+            fig5 = px.line(
+                bev,
+                x="Year",
+                y="BEV_Share",
+                markers=True,
+                title="Média de participação BEV ao longo dos anos",
+                labels={
+                    "Year": "Ano",
+                    "BEV_Share": "Participação BEV"
+                }
+            )
+
+            st.plotly_chart(fig5, use_container_width=True)
+
+    with col_dir2:
+        if "Avg_Price_EUR" in df.columns:
+            st.subheader("💰 Preço Médio por Ano")
+
+            preco = df.groupby("Year")["Avg_Price_EUR"].mean().reset_index()
+
+            fig6 = px.line(
+                preco,
+                x="Year",
+                y="Avg_Price_EUR",
+                markers=True,
+                title="Evolução do preço médio",
+                labels={
+                    "Year": "Ano",
+                    "Avg_Price_EUR": "Preço médio EUR"
+                }
+            )
+
+            st.plotly_chart(fig6, use_container_width=True)
 
     st.divider()
 
