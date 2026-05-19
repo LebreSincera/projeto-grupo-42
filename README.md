@@ -1,39 +1,102 @@
-🖼️ Preview do Dashboard
+# projeto-grupo-42
 
-![Preview do Dashboard](imagens/preview_dashboard.png)
-
----
-
-# 📈 Gráfico de Vendas
-
-![Vendas](imagens/grafico_vendas.png)
-
----
-
-# 🏆 Modelos Mais Vendidos
-
-![Modelos](imagens/grafico_modelos.png)
+## Equipe
+- THIAGO JULIANI DE OLIVEIRA
+- MATHEUS SANTOS SAMPAIO
+- LUCAS BARROS DE ALMEIDA
+- PEDRO OLIVEIRA SOUZA
+- EWERTON DOS SANTOS GONCALVES
+- RAFAEL SILVA COELHO
 
 ---
 
-# 📊 Evolução das Vendas
+## Objetivo
+- Realizar a análise da base de dados de vendas da BMW.
+- Os objetivos específicos da análise são:
+  1. Examinar o volume de vendas por região (Europa, China, EUA e demais mercados);
+  2. Identificar os modelos mais comercializados;
+  3. Comparar o crescimento das vendas entre diferentes regiões.
 
-![Evolução](imagens/grafico_evolucao.png)
-
----
-
-## 📈 Visualizações Desenvolvidas
-
-- Volume de vendas por região
-- Evolução das vendas ao longo dos anos
-- Modelos mais vendidos
+## Finalidade da análise
+- Compreender de forma mais aprofundada o mercado de vendas da BMW e sua distribuição global.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Estrutura do Repositório
 
+```
+Project_Files/
+├── data/
+│   ├── base_original.csv     
+│   └── base_tratada.csv      
+├── src/
+│   └── etl.py                
+├── app/
+│   └── dashboard.py          
+├── requirements.txt          
+└── README.md
+```
+
+---
+
+## Como executar
+
+> **Pré-requisito:** ter o [Python](https://www.python.org/downloads/) instalado na máquina.
+
+### Windows
+Dê dois cliques no arquivo **`rodar_dashboard.bat`** na raiz do projeto.
+
+### Linux / Mac
+No terminal, na raiz do projeto, rode:
+```bash
+chmod +x rodar_dashboard.sh
+./rodar_dashboard.sh
+```
+
+O script irá automaticamente:
+1. Criar o ambiente virtual (`.venv`)
+2. Instalar todas as dependências
+3. Abrir o dashboard no navegador
+
+---
+
+## Executando manualmente (opcional)
+
+Caso prefira rodar passo a passo:
+
+```bash
+# 1. Criar e ativar o ambiente virtual
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# Linux/Mac
+source .venv/bin/activate
+
+# 2. Instalar dependências
+pip install -r projeto-grupo-42/requirements.txt
+
+# 3. Gerar a base tratada
+python projeto-grupo-42/src/etl.py
+
+# 4. Rodar o dashboard
+streamlit run projeto-grupo-42/app/dashboard.py
+```
+
+---
+
+## Planejamento
+- **Tarefa 1:** Limpeza e tratamento da base de dados (CSV) — LUCAS BARROS DE ALMEIDA
+- **Tarefa 2:** Desenvolvimento da lógica de filtros e consultas — PEDRO OLIVEIRA SOUZA
+- **Tarefa 3:** Criação de visualizações e gráficos estatísticos — EWERTON DOS SANTOS GONCALVES
+- **Tarefa 4:** Construção da interface interativa em Streamlit — THIAGO JULIANI DE OLIVEIRA
+- **Tarefa 5:** Documentação técnica e revisão final — MATHEUS SANTOS SAMPAIO
+
+---
+
+## Tecnologias
 - Python
-- Streamlit
 - Pandas
 - Plotly
-- GitHub
+- Streamlit
