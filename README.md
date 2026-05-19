@@ -42,7 +42,7 @@
 
 # 📊 Evolução das Vendas
 
-![Evolução](imagens/grafico_evolucao.png)
+![Evolução](imagens/vendas_evoluçao.png)
 
 ---
 
